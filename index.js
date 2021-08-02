@@ -1,19 +1,19 @@
 require("dotenv").config();
 const express = require("express");
 const formidable = require("express-formidable");
-// const mongoose = require("mongoose")
-// const cors = require("cors");
+const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 
-// app.use(cors());
+app.use(cors());
 app.use(formidable());
 
-// mongoose.connect(process.env.MONGODB_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-// });
+mongoose.connect("mongodb://localhost:27017/formulairePlus", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 
 // déclaration des routes
 const studentRoute = require("./routes/student");

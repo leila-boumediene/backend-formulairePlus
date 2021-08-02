@@ -7,8 +7,9 @@ const Student = mongoose.model("Student", {
   },
   firstName: String,
   lastName: String,
+
   email: String,
-  Convention: { type: mongoose.Types.ObjectId, ref: "Convention" },
+  Convention: { type: mongoose.Schema.Types.ObjectId, ref: "Convention" },
 });
 
 module.exports = Student;

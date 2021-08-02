@@ -10,29 +10,47 @@ const Student = require("../models/Student");
 router.post("/student/create", async (req, res) => {
   try {
     const student = await Student.findOne({ lastName: req.fields.lastName });
-    if (student) {
-      res.status(409).json({ message: "This student is already exist" });
-    } else {
+    if (!student) {
       if (req.fields.lastName) {
         const newStudent = new Student({
-          idStudent: req.fields.idStudent,
+          // idStudent: req.fields.idStudent,
           email: req.fields.email,
           firstName: req.fields.firstName,
           lastName: req.fields.lastName,
         });
         await newStudent.save();
-        res
-          .status(200)
-          .json({
-            idStudent: newStudent.idStudent,
-            email: newStudent.email,
-            firstName: newStudent.firstName,
-            lastName: newStudent.lastName,
-          });
+        res.status(200).json({
+          idStudent: newStudent.idStudent,
+          email: newStudent.email,
+          firstName: newStudent.firstName,
+          lastName: newStudent.lastName,
+        });
       } else {
         res.status(400).json({ message: "Missing somthing" });
       }
     }
+
+    // {
+    //   res.status(409).json({ message: "This student is already exist" });
+    // } else {
+    //   if (req.fields.lastName) {
+    //     const newStudent = new Student({
+    //       idStudent: req.fields.idStudent,
+    //       email: req.fields.email,
+    //       firstName: req.fields.firstName,
+    //       lastName: req.fields.lastName,
+    //     });
+    //     await newStudent.save();
+    //     res.status(200).json({
+    //       idStudent: newStudent.idStudent,
+    //       email: newStudent.email,
+    //       firstName: newStudent.firstName,
+    //       lastName: newStudent.lastName,
+    //     });
+    //   } else {
+    //     res.status(400).json({ message: "Missing somthing" });
+    //   }
+    // }
 
     // }
 
