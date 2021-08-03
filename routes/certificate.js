@@ -1,6 +1,6 @@
 const router = express.Router();
 
-router.post("/attestion", async (req, res) => {
+router.get("/attestion", async (req, res) => {
   try {
     //  je vérifie les Id de l'étudiant et de la convention
     // const student = await Student.findById(req.fields.idStudent);

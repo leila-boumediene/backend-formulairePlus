@@ -10,7 +10,7 @@ const Certificate = require("../models/Certificate");
 router.post("/convention/create", async (req, res) => {
   try {
     // je check si l'étudiant existe
-    const convention = await Convention.findOne(req.fields.idConvention);
+    const idStudent = await Student.findOne(req.fields.idStudent);
     if (idStudent) {
       // si l'étudiant existe je lui associe une convention
       const newConvention = new Convetion({
@@ -24,6 +24,19 @@ router.post("/convention/create", async (req, res) => {
         lastName: req.fields.lastName,
         nbHours: req.fields.nbHours,
       });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get("/convention/idConvention", async (req, res) => {
+  try {
+    const conventionById = await Convention.findById(req.fields.idConvention);
+    if (conventionById) {
+      res.status(200).json(conventionById);
+    } else {
+      res.status(400).json({ message: "somthing wrong" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
