@@ -29,54 +29,20 @@ router.post("/student/create", async (req, res) => {
         res.status(400).json({ message: "Missing somthing" });
       }
     }
-
-    // {
-    //   res.status(409).json({ message: "This student is already exist" });
-    // } else {
-    //   if (req.fields.lastName) {
-    //     const newStudent = new Student({
-    //       idStudent: req.fields.idStudent,
-    //       email: req.fields.email,
-    //       firstName: req.fields.firstName,
-    //       lastName: req.fields.lastName,
-    //     });
-    //     await newStudent.save();
-    //     res.status(200).json({
-    //       idStudent: newStudent.idStudent,
-    //       email: newStudent.email,
-    //       firstName: newStudent.firstName,
-    //       lastName: newStudent.lastName,
-    //     });
-    //   } else {
-    //     res.status(400).json({ message: "Missing somthing" });
-    //   }
-    // }
-
-    // }
-
-    // vérifier si l'étudiant est déjà existant dans la base de données
-    //         const student = await Student.findOne({lastName: req.fields.lastName});
-    // if(student){
-    //     res.status(409).json({
-    //         message: `This student is already exist`,
-    //       });
-    // } else{
-    //     if (req.fields.lastName){
-    //  // si le nom n'existe pas création de l'étudiant
-    //         // if(!student){
-    //             const newStudent = new Student({
-    //                 idStudent: req.fields.idStudent,
-    //                 email: req.fields.email,
-    //                 firstName: req.fields.firstName,
-    //                 lastName: req.fields.lastName,
-    //             });
-    //         // }
-    //         await newStudent.save();
-    //         res.status(200).json(newStudent)
-    //     }else{
-    //         res.status(400).json({ message: "something is wrong" });
-    //     }
-    // }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+router.get("/student/idStudent", async (req, res) => {
+  try {
+    const studentById = await Student.findById({
+      lastName: req.fields.idStudent,
+    });
+    if (studentById) {
+      res.status(200).json(studentById);
+    } else {
+      res.status(400).json({ message: "student doesn't exist" });
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
